@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MvEcommerceApp.ActionModels;
 using MvEcommerceApp.Models;
-using System.Net;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MvEcommerceApp.Controllers
 {
@@ -13,8 +10,10 @@ namespace MvEcommerceApp.Controllers
     {
         private string apikey = "15b1e56f9de03a18@m139631";
         
+        //Insert (a new) or update (an existing):
+        // - Product
         [HttpPost("product")]
-        public async Task<HttpStatusCode> InsertOrUpdateProduct([FromBody] mvProduct product)
+        public async Task<string> InsertOrUpdateProduct([FromBody] mvProduct product)
         {
             mvProductAction actionPayload = new mvProductAction();
             actionPayload.APIKEY = apikey;
@@ -23,12 +22,13 @@ namespace MvEcommerceApp.Controllers
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsJsonAsync("https://api.megaventory.com/v2017a/Product/ProductUpdate", actionPayload);
-                return response.StatusCode;
+                return await response.Content.ReadAsStringAsync();
             }
         }
 
+        // - Supplier or Client
         [HttpPost("supplier_client")]
-        public async Task<HttpStatusCode> InsertOrUpdateSupplierClient([FromBody] mvSupplierClient supplierClient)
+        public async Task<string> InsertOrUpdateSupplierClient([FromBody] mvSupplierClient supplierClient)
         {
             mvSupplierClientAction actionPayload = new mvSupplierClientAction();
             actionPayload.APIKEY = apikey;
@@ -37,12 +37,13 @@ namespace MvEcommerceApp.Controllers
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsJsonAsync("https://api.megaventory.com/v2017a/SupplierClient/SupplierClientUpdate", actionPayload);
-                return response.StatusCode;
+                return await response.Content.ReadAsStringAsync();
             }
         }
 
+        // - Inventory location (warehouse)
         [HttpPost("inventory_location")]
-        public async Task<HttpStatusCode> InsertOrUpdateInventoryLocation([FromBody] mvInventoryLocation inventoryLocation)
+        public async Task<string> InsertOrUpdateInventoryLocation([FromBody] mvInventoryLocation inventoryLocation)
         {
             mvInventoryLocationAction actionPayload = new mvInventoryLocationAction();
             actionPayload.APIKEY = apikey;
@@ -51,7 +52,7 @@ namespace MvEcommerceApp.Controllers
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsJsonAsync("https://api.megaventory.com/v2017a/InventoryLocation/InventoryLocationUpdate", actionPayload);
-                return response.StatusCode;
+                return await response.Content.ReadAsStringAsync();
             }
         }
     }

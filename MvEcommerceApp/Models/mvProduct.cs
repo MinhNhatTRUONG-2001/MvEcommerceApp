@@ -1,4 +1,6 @@
-﻿namespace MvEcommerceApp.Models
+﻿using MvEcommerceApp.ActionModels;
+
+namespace MvEcommerceApp.Models
 {
     public class mvProduct
     {

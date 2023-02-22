@@ -2,10 +2,10 @@
 
 namespace MvEcommerceApp.ActionModels
 {
-    public class mvSupplierClientAction
+    public class mvProductClientAction
     {
         public string APIKEY { get; set; }
-        public mvSupplierClient mvSupplierClient { get; set; }
+        public mvProductClient? mvProductClientUpdate { get; set; }
         public string mvRecordAction { get; set; }
     }
 }
